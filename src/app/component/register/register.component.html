@@ -1,0 +1,95 @@
+<div class="bg-[#faf8ff] h-screen">
+    <div class="flex justify-center items-center">
+        <div class="bg-[#fff] md:w-[500px] m-4 p-6 md:p-10 absolute top-[80px] md:top-[50px]   shadow-md rounded-md">
+            <div class="grid gap-4 justify-center">
+                <div class="flex justify-center items-center"><img src="../../../assets/images/vichar.png"
+                        class="h-[30px] text-center"></div>
+                <p class="text-center text-[18px] text-[#828282]">Where Thoughts Take Flight. Your Journey Begins with
+                    Vichar!
+                </p>
+            </div>
+            <div class="mt-6">
+                <form [formGroup]="registeration">
+
+                    <div class="grid gap-4">
+                        <div class="grid gap-1">
+                            <input class="focus:outline-none border-[1px] p-2 rounded-[5px] border-[#ddd]"
+                                formControlName="name" type="text" placeholder="Name">
+                            <p *ngIf="registeration.hasError('required','name') && registeration.controls['name'].touched"
+                                style="color:red">Name is required</p>
+                        </div>
+                        <div class="grid gap-1">
+                            <input class="focus:outline-none border-[1px] p-2 rounded-[5px] border-[#ddd]"
+                                formControlName="email" type="email" placeholder="Email">
+                            <p *ngIf="registeration.hasError('required','email') && registeration.controls['email'].touched"
+                                style="color:red">Email is required</p>
+                            <p *ngIf="registeration.hasError('email','email') " style="color:red">email is invalid</p>
+                        </div>
+
+                        <div class="grid gap-1 inner-addon right-addon">
+                            <!-- <input class="focus:outline-none border-[1px] p-2 rounded-[5px] border-[#ddd]"
+                                formControlName="password" type="password" placeholder="Password"> -->
+
+                            <div class="input-group col-6 mx-auto">
+                                <input name="password" [type]="showPassword ? 'text' : 'password'"
+                                    class="form-control pwd-control border-[#ddd] border-[1px] p-2 rounded-[5px] focus:outline-none focus:border-[#ffff]"
+                                    id="password-field" placeholder="Password" formControlName="password">
+                                <div>
+                                    <svg [class.hide]="showPassword"
+                                        class="eye w-[25px] h-[25px] fill-[#6A4EE9]  cursor-pointer hover:fill-[#282424]"
+                                        (click)="showPassword = !showPassword">
+                                        <use href="../../../assets/images/eye-outline.svg#eye"></use>
+                                    </svg>
+                                    <svg [class.hide]="!showPassword"
+                                        class="eye-off w-[25px] h-[25px] fill-[#6A4EE9]  cursor-pointer hover:fill-[#282424]"
+                                        (click)="showPassword = !showPassword">
+                                        <use href="../../../assets/images/eye-off-outline.svg#eye-off"></use>
+                                    </svg>
+                                </div>
+
+                            </div>
+                            <p *ngIf="registeration.hasError('required','password') && registeration.controls['password'].touched"
+                                style="color:red">Password is required</p>
+                        </div>
+                        <div class="grid gap-1 inner-addon right-addon">
+                            <!-- <input class="focus:outline-none border-[1px] p-2 rounded-[5px] border-[#ddd]"
+                                formControlName="confirmPassword" type="password" placeholder="Confirm Password"> -->
+
+                            <div class="input-group col-6 mx-auto">
+                                <input name="password" [type]="showConfirmedPassword ? 'text' : 'password'"
+                                    formControlName="confirmPassword"
+                                    class="form-control pwd-control border-[#ddd] border-[1px] p-2 rounded-[5px] focus:outline-none focus:border-[#ffff]"
+                                    id="password-field" placeholder="Confirm Password">
+                                <div>
+                                    <svg [class.hide]="showConfirmedPassword"
+                                        class="eye w-[25px] h-[25px] fill-[#6A4EE9]  cursor-pointer hover:fill-[#282424]"
+                                        (click)="showConfirmedPassword = !showConfirmedPassword">
+                                        <use href="../../../assets/images/eye-outline.svg#eye"></use>
+                                    </svg>
+                                    <svg [class.hide]="!showConfirmedPassword"
+                                        class="eye-off w-[25px] h-[25px] fill-[#6A4EE9]  cursor-pointer hover:fill-[#282424]"
+                                        (click)="showConfirmedPassword = !showConfirmedPassword">
+                                        <use href="../../../assets/images/eye-off-outline.svg#eye-off"></use>
+                                    </svg>
+                                </div>
+
+                            </div>
+                            <p *ngIf="registeration.hasError('required','confirmPassword') && registeration.controls['confirmPassword'].touched"
+                                style="color:red">required</p>
+                            <p *ngIf="registeration.hasError('confirmPasswordValidator','confirmPassword') "
+                                style="color:red">password did
+                                not match</p>
+                        </div>
+                        <button class="bg-[#6A4EE9] hover:bg-[#282424] text-white font-bold py-2 px-4 rounded"
+                            (click)="register()" type="submit">Submit</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <p class="text-center text-[14px] mt-4">Already have account? <span
+                    class="text-[#6A4EE9] underline cursor-pointer" (click)="onLogin()">Login Vichar</span></p>
+        </div>
+
+    </div>
+</div>

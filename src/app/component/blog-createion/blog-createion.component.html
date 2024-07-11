@@ -1,0 +1,35 @@
+<app-header-blog [publishData]="blogFields"></app-header-blog>
+
+<div class="blogCreation">
+  <div class="md:max-w-[1330px] mx-auto mt-24 p-2 md:p-8">
+    <div class="grid md:mx-40 gap-4">
+      <div class="relative inline-block md:w-80">
+        <div class="border-2 border-[#ddd] rounded-[5px] p-2 cursor-pointer" (click)="toggleDropdown()">
+          <span>{{ SelectedValue || 'Select an option' }}</span>
+          <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 ">
+            <svg class="fill-current h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+              <path
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+            </svg>
+          </div>
+        </div>
+        <ul *ngIf="isOpen" class="absolute z-10 w-full border border-gray-200 rounded mt-1 bg-white ">
+          <li *ngFor="let option of options" class="p-2 cursor-pointer hover:bg-gray-100 " (click)="selectOption(option)">
+            {{ option }}
+          </li>
+        </ul>
+      </div>
+    <textarea appAutoResize maxlength="150" rows="1"  class="text-4xl pb-1 font-bold mb-5 overflow-y-hidden mt-4 focus:outline-none resize-none" type="text" placeholder="Title..." [(ngModel)]="titleText"></textarea>
+     <quill-editor class="content-editor mb-12" [placeholder]="''" [modules]="quillConfiguration" [(ngModel)]="htmlText"  
+    (onSelectionChanged)="onSelectionChanged($event)" (onContentChanged)="onContentChanged($event)">
+  </quill-editor>
+  </div>
+  </div>
+</div>
+
+
+
+
+
+
+
