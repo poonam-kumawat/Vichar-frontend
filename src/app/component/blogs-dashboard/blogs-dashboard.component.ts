@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { CreatorsComponent } from '../creators/creators.component';
+import { SkeletonLoaderComponent } from '../skeleton-loader/skeleton-loader.component';
 
 @Component({
   selector: 'app-blogs-dashboard',
   standalone: true,
-  imports: [CommonModule, CreatorsComponent],
+  imports: [CommonModule, CreatorsComponent, SkeletonLoaderComponent],
   templateUrl: './blogs-dashboard.component.html',
   styleUrl: './blogs-dashboard.component.css',
 })
@@ -24,20 +25,28 @@ export class BlogsDashboardComponent implements OnInit {
     this.isBlogdashboard = true;
     this.ongetBlogs(this.currentPage);
   }
-
+  isSkeleton = true;
   blogsData: any;
   currentPage: number = 1;
   totalPages: any;
   limit: number = 9;
-  ongetBlogs(page: number) {
+  ongetBlogs(page: number): void {
+    this.isSkeleton = true; 
     const body = {
       page: page,
       limit: this.limit,
     };
-    this.sharedService.getBlogApi(body).subscribe((data) => {
-      this.blogsData = data.blogs;
-      this.totalPages = Math.ceil(data.totalCount / this.limit);
-    });
+
+    this.sharedService.getBlogApi(body).subscribe(
+      (data) => {
+        this.blogsData = data.blogs;
+        this.totalPages = Math.ceil(data.totalCount / this.limit);
+        this.isSkeleton = false; 
+      },
+      (error) => {
+        this.isSkeleton = false; 
+      }
+    );
   }
 
   onPageChange(page: number) {
@@ -107,5 +116,4 @@ export class BlogsDashboardComponent implements OnInit {
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
- 
 }

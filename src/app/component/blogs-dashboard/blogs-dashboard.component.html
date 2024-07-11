@@ -53,6 +53,7 @@
 
         </div>
         <div class="max-w-[1330px] m-auto ">
+            
             <div *ngIf="blogsData.length===0" class="grid md:grid-cols-2 mt-12">
                 <div class="items-center justify-center flex">
                     <div class="text-center md:text-left px-4">
@@ -74,11 +75,10 @@
 
 
             </div>
-            <div class="grid md:grid-cols-3 gap-8 px-4 md:mt-11 md:px-0">
+            <app-skeleton-loader *ngIf="isSkeleton"></app-skeleton-loader>
 
+            <div  *ngIf="!isSkeleton" class="grid md:grid-cols-3 gap-8 px-4 md:mt-11 md:px-0">
                 <ng-container *ngFor="let blog of blogsData;let i=index">
-
-
                     <div class="hover:scale-105 hover:ease-in hover:duration-300  cursor-pointer grid gap-4 border border-[#feeae] rounded-[2px] p-2 mt-8"
                         (click)="OnNavigate(blog._id)">
                         <div class="cursor-pointer">
