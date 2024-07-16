@@ -31,20 +31,19 @@ export class BlogsDashboardComponent implements OnInit {
   totalPages: any;
   limit: number = 9;
   ongetBlogs(page: number): void {
-    this.isSkeleton = true; 
+    this.isSkeleton = true;
     const body = {
       page: page,
       limit: this.limit,
     };
-
     this.sharedService.getBlogApi(body).subscribe(
       (data) => {
         this.blogsData = data.blogs;
         this.totalPages = Math.ceil(data.totalCount / this.limit);
-        this.isSkeleton = false; 
+        this.isSkeleton = false;
       },
       (error) => {
-        this.isSkeleton = false; 
+        this.isSkeleton = false;
       }
     );
   }

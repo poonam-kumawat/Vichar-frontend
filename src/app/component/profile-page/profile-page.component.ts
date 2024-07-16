@@ -6,11 +6,17 @@ import { HeaderBlogComponent } from '../header-blog/header-blog.component';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../service/auth.service';
+import { ProfileSkeletonComponent } from '../skeleton/profile-skeleton/profile-skeleton.component';
 
 @Component({
   selector: 'app-profile-page',
   standalone: true,
-  imports: [CommonModule, HeaderBlogComponent, FormsModule],
+  imports: [
+    CommonModule,
+    HeaderBlogComponent,
+    FormsModule,
+    ProfileSkeletonComponent,
+  ],
   templateUrl: './profile-page.component.html',
   styleUrl: './profile-page.component.css',
 })
@@ -19,7 +25,7 @@ export class ProfilePageComponent implements OnInit {
     private sharedService: SharedService,
     private route: ActivatedRoute,
     private router: Router,
-    public authService:AuthService
+    public authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -29,16 +35,23 @@ export class ProfilePageComponent implements OnInit {
   aboutProfile: any = '';
   profileDetails: any;
   profileId: any;
+  isloading = true;
   onhandleProfile() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.sharedService.getProfileApi(id).subscribe((res: any) => {
-      this.profileDetails = res;
-      this.profileId = this.profileDetails.find((data: any) => data);
-      console.log(this.profileDetails);
-      this.profileName = this.profileId.name;
-      this.aboutProfile = this.profileId.about;
-      this.displayPicture = this.profileId.profilePicture;
-    });
+    this.sharedService.getProfileApi(id).subscribe(
+      (res: any) => {
+        this.profileDetails = res;
+        this.profileId = this.profileDetails.find((data: any) => data);
+        console.log(this.profileDetails);
+        this.profileName = this.profileId.name;
+        this.aboutProfile = this.profileId.about;
+        this.displayPicture = this.profileId.profilePicture;
+        this.isloading = false;
+      },
+      (error) => {
+        this.isloading = true;
+      }
+    );
   }
 
   displayPicture: any;
