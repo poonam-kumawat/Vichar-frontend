@@ -12,6 +12,7 @@ import { ImageHandler, Options } from 'ngx-quill-upload';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../service/auth.service';
 import { AutoResizeDirective } from '../../directives/auto-resize.directive';
+import { BlogSkeletonComponent } from '../skeleton/blog-skeleton/blog-skeleton.component';
 Quill.register('modules/imageHandler', ImageHandler);
 
 @Component({
@@ -24,6 +25,7 @@ Quill.register('modules/imageHandler', ImageHandler);
     QuillModule,
     HeaderBlogComponent,
     AutoResizeDirective,
+    BlogSkeletonComponent,
   ],
   templateUrl: './update-blog.component.html',
   styleUrl: './update-blog.component.css',
@@ -112,7 +114,7 @@ export class UpdateBlogComponent
   detailBlog: any;
   idDelete: any;
   tilteData: any;
-
+  isBlogFail=true;
   creator: any;
   onDetailDisplay() {
     const id = this.route.snapshot.paramMap.get('id');
@@ -129,7 +131,11 @@ export class UpdateBlogComponent
         this.uploadedImageURLs = blogDetail.images;
         this.creator = blogDetail.creator;
       }
-    });
+      this.isBlogFail=false;
+    },
+  (error)=>{
+    this.isBlogFail=true;
+  });
   }
   editorText: any;
   onContentChanged = (event: any) => {
@@ -176,7 +182,7 @@ export class UpdateBlogComponent
     this.handleQuillCss();
   }
   ngAfterViewChecked(): void {
-   this.handleQuillCss();
+    this.handleQuillCss();
   }
   handleQuillCss() {
     const imageElement = this.contentDiv.nativeElement.querySelector('img');
